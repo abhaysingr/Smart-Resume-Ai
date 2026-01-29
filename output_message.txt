@@ -1,0 +1,16 @@
+I have completed the requested updates to the frontend (`views/builder.py`, `ui_components.py`) and integrated the new features from the backend (`utils/resume_builder.py`).
+
+Here's a summary of the additional changes made to the frontend:
+
+*   **`views/builder.py`**:
+    *   Added a "Select Experience Type" radio button (`Professional` or `Internship`) for the user to choose their experience category.
+    *   The chosen experience type is now correctly passed to the `resume_data` dictionary for resume generation.
+*   **`ui_components.py`**:
+    *   The `render_personal_info_form` now uses "GitHub URL" as the label for consistency.
+    *   The `render_experience_form` now includes a "Work Mode (Remote/Hybrid/On-site)" field.
+    *   The `render_projects_form` now includes explicit fields for "GitHub URL" and "Live Demo URL".
+    *   Removed all AI generation buttons and related logic from `render_summary_form`, `render_experience_form`, and `render_projects_form` to streamline the UI and align with the current backend's placeholder AI functionality.
+
+All the relevant input fields from the updated backend script (`resume_builder.py`) are now available in the Streamlit frontend. The application should now allow users to build resumes with the expanded data fields and generate `.docx` files using the new templates, including the 'ATS-Friendly' option.
+
+I consider this task complete.

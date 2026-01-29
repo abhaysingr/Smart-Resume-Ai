@@ -1,0 +1,38 @@
+# Core dependencies
+streamlit
+pandas
+numpy
+matplotlib
+seaborn
+Pillow
+python-docx
+PyPDF2
+requests
+streamlit-lottie
+openai
+groq
+Jinja2
+
+# NLP and ML dependencies
+scikit-learn
+
+# Database dependencies
+psycopg2-binary
+python-dotenv
+SQLAlchemy
+bcrypt
+
+# Data visualization
+plotly
+altair
+
+# Utilities
+python-dateutil
+joblib
+tqdm
+pyyaml
+boto3
+
+# Added for NumPy compatibility
+packaging>=20.0
+pybind11>=2.12.0

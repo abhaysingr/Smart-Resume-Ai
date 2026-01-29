@@ -1,0 +1,1028 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+/* --- START OF NEW SIDEBAR STYLE --- */
+/* Sidebar container */
+section[data-testid="stSidebar"] {
+    background-color: #2f343a !important;
+    border-right: 1px solid #444; /* A subtle border instead of a shadow */
+    box-shadow: none !important;
+    padding: 1rem !important;
+}
+
+/* Sidebar header text */
+.sidebar-header {
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+/* All text inside sidebar */
+section[data-testid="stSidebar"] p,
+section[data-testid="stSidebar"] span,
+section[data-testid="stSidebar"] h1,
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3 {
+    color: white !important;
+}
+
+
+/* Sidebar navigation buttons */
+section[data-testid="stSidebar"] .stButton button {
+    padding: 14px 20px !important;
+    margin: 5px 0 !important;
+    border-radius: 8px !important;
+    color: #e6e6e6 !important; /* Slightly off-white */
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    transition: color 0.2s ease, background-color 0.2s ease !important;
+    background-color: transparent !important;
+    border: none !important;
+    width: 100% !important;
+    text-align: left !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important; /* Space between icon and text */
+}
+
+/* Hover effect for navigation buttons */
+section[data-testid="stSidebar"] .stButton button:hover {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Make sure the text inside the button is styled correctly */
+section[data-testid="stSidebar"] .stButton button p {
+    color: inherit !important; /* Inherit color from the button */
+    font-weight: inherit !important;
+}
+
+/* Style for the active page button */
+section[data-testid="stSidebar"] .stButton button.active {
+    background-color: rgba(0, 123, 255, 0.2) !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+
+.sidebar-icon {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.6);
+    transition: all 0.2s ease;
+}
+
+/* --- END OF NEW SIDEBAR STYLE --- */
+
+/* Root Variables */
+:root {
+    --primary-gradient: linear-gradient(135deg, #007bff 0%, #0056b3 100%); /* Adjusted primary gradient */
+    --secondary-gradient: linear-gradient(135deg, #6c757d 0%, #5a6268 100%); /* Secondary gradient */
+    --accent-color: #007bff; /* Primary accent color */
+    --accent-color-light: #66b3ff; /* Lighter accent for subtle highlights */
+    --accent-color-dark: #0056b3; /* Darker accent for hover/active states */
+    --bg-primary: #f8f9fa; /* Lighter background for main content */
+    --bg-secondary: #ffffff; /* White background for cards/sections */
+    --bg-dark: #343a40; /* Dark background for sidebar/footers */
+    --text-primary: #212529; /* Darker text for readability */
+    --text-secondary: #6c757d; /* Lighter text for descriptions/subtitles */
+    --text-light: #ffffff; /* White text for dark backgrounds */
+    --border-color: #e0e0e0; /* Light border for subtle separation */
+    --shadow-light: rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
+    --shadow-medium: rgba(0, 0, 0, 0.15); /* Medium shadow for hover effects */
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --error-color: #dc3545;
+    
+    --font-primary: 'Inter', sans-serif;
+    --font-secondary: 'Poppins', sans-serif;
+}
+
+/* Global Styles */
+body {
+    font-family: var(--font-primary);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+}
+
+.stApp {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Main container */
+.main {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Card Styling */
+.stCard {
+    background: var(--bg-secondary);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px var(--shadow-light);
+    border: 1px solid var(--border-color);
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: var(--text-primary);
+}
+
+.stCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px var(--shadow-medium);
+}
+
+/* Button Styling */
+.stButton > button {
+    background: var(--primary-gradient) !important;
+    color: var(--text-light) !important;
+    border: none !important;
+    padding: 12px 24px !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 4px rgba(0, 105, 148, 0.2) !important;
+    text-transform: none !important;
+    letter-spacing: 0.5px !important;
+    line-height: 1.4 !important;
+}
+
+.stButton > button:hover {
+    background: linear-gradient(135deg, #005577 0%, #0088B5 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(0, 105, 148, 0.3) !important;
+}
+
+.stButton > button:active {
+    transform: translateY(0) !important;
+    box-shadow: 0 2px 4px rgba(0, 105, 148, 0.2) !important;
+}
+
+/* Input Fields */
+.stTextInput > div > div,
+div[data-baseweb="input"] {
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: 8px;
+    padding: 0;
+}
+
+.stTextInput > div > div:focus-within,
+div[data-baseweb="input"]:focus-within {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 1px var(--accent-color);
+}
+
+/* Streamlit Password Input Styles */
+div[data-baseweb="base-input"] {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+div[data-baseweb="input"] input {
+    background: transparent !important;
+    border: none !important;
+    color: var(--text-primary) !important;
+    font-size: 14px !important;
+    padding: 12px !important;
+    height: 45px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    outline: none !important;
+}
+
+/* Remove all focus outlines */
+div[data-baseweb="input"]:focus,
+div[data-webtest="input"] input:focus,
+div[data-baseweb="input"] div:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Single focus border on container */
+div[data-baseweb="input"]:focus-within {
+    border-color: var(--accent-color) !important;
+    box-shadow: 0 0 0 1px var(--accent-color) !important;
+}
+
+/* Password Eye Icon */
+div[data-baseweb="input"] button {
+    position: absolute !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    background: none !important;
+    border: none !important;
+    padding: 4px !important;
+    color: var(--text-secondary) !important;
+    cursor: pointer !important;
+    z-index: 2 !important;
+    height: auto !important;
+    min-height: auto !important;
+    width: auto !important;
+    min-width: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Eye Icon Hover */
+div[data-baseweb="input"] button:hover,
+div[data-baseweb="input"] button:focus {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: var(--accent-color) !important;
+}
+
+/* Remove any inner containers/wrappers styling */
+div[data-baseweb="input"] > div {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Admin Login Section */
+.stExpander {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    margin: 10px 0;
+    padding: 15px;
+}
+
+.stExpander .stButton > button {
+    width: 100%;
+    margin: 10px 0 5px 0;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    height: 45px;
+}
+
+.stExpander .stButton > button:hover {
+    background: var(--accent-color-dark);
+}
+
+/* File Uploader */
+.stFileUploader {
+    background: var(--bg-secondary);
+    border: 2px dashed var(--border-color);
+    border-radius: 10px;
+    padding: 2rem;
+}
+
+.stFileUploader:hover {
+    border-color: var(--accent-color);
+}
+
+/* Metrics - Enhanced for consistency */
+.stMetric,
+[data-testid="stMetric"] {
+    background: var(--bg-secondary);
+    padding: 1rem;
+    border-radius: 10px;
+    border-left: 4px solid var(--accent-color);
+    color: var(--text-primary);
+    transition: transform 0.3s ease;
+}
+
+.stMetric:hover,
+[data-testid="stMetric"]:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 8px var(--shadow-light);
+}
+
+/* Dashboard specific styling */
+.dashboard-title {
+    font-family: var(--font-secondary);
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+    text-align: center;
+}
+
+.metric-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px var(--shadow-light);
+    transition: transform 0.3s ease;
+    height: 100%;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px var(--shadow-medium);
+}
+
+.metric-value {
+    font-family: var(--font-secondary);
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    margin: 0.5rem 0;
+}
+
+.metric-label {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.chart-container {
+    background-color: var(--bg-secondary);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 8px var(--shadow-light);
+}
+
+/* Headers */
+h1, h2, h3 {
+    color: var(--text-primary);
+    font-family: var(--font-secondary);
+    font-weight: 600;
+}
+
+h1 {
+    color: var(--accent-color);
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Progress Bars */
+.stProgress > div > div {
+    background-color: var(--accent-color);
+}
+
+/* Expander */
+.streamlit-expanderHeader {
+    background: var(--bg-light);
+    border: none;
+    border-radius: 8px;
+    color: var(--text-primary);
+}
+
+/* Plotly Charts */
+.js-plotly-plot {
+    background: var(--bg-secondary) !important;
+}
+
+/* This targets the container created by st.container(border=True) and
+   applies the card-like hover effects and transitions. */
+div[data-testid="stAppViewContainer"] [data-testid="stVerticalBlock"] {
+    background: var(--bg-secondary);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+div[data-testid="stAppViewContainer"] [data-testid="stVerticalBlock"]:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px var(--shadow-medium);
+    border-color: var(--accent-color) !important;
+}
+
+.resume-template {
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 0.5rem;
+    border: 2px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.resume-template:hover {
+    border-color: var(--accent-color);
+    transform: scale(1.02);
+}
+
+/* Feedback Section */
+.feedback-card {
+    background: var(--bg-secondary);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.feedback-card:hover {
+    transform: translateX(5px);
+    border-color: var(--accent-color);
+}
+
+/* About Section */
+.about-section {
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-light) 100%);
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0,123,255,0.1) 0%, transparent 70%); /* Updated color */
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* Role card styling */
+.role-card {
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.role-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-light);
+}
+
+.role-card h3 {
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+
+/* Skills tag styling */
+.skill-tag {
+    display: inline-block;
+    background: rgba(0, 123, 255, 0.1); /* Updated color */
+    color: var(--accent-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    margin: 0.25rem;
+    font-size: 0.875rem;
+}
+
+/* Template preview styling */
+.template-preview {
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.main-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.1) 100%);
+    z-index: 1;
+}
+
+.main-header h1 {
+    color: var(--text-light);
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+}
+
+/* Template Card Styles */
+.template-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.template-card {
+    background: var(--bg-dark);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.template-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    border-color: var(--accent-color);
+}
+
+.template-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 0%, rgba(0, 123, 255, 0.1) 100%); /* Updated color */
+    z-index: 1;
+}
+
+.template-icon {
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.template-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.template-description {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+    line-height: 1.6;
+}
+
+/* Feature List Styles */
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+    position: relative;
+    z-index: 2;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    color: #ddd;
+    font-size: 0.95rem;
+}
+
+.feature-icon {
+    color: var(--accent-color);
+    margin-right: 0.8rem;
+    font-size: 1.1rem;
+}
+
+/* Button Styles */
+.action-button {
+    background: var(--primary-gradient);
+    color: var(--text-light);
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.action-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 123, 255, 0.3); /* Updated color */
+}
+
+.action-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+    transition: all 0.6s ease;
+}
+
+.action-button:hover::before {
+    left: 100%;
+}
+
+/* Form Section Styles */
+.form-section {
+    background: var(--bg-dark);
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 2rem 0;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.form-section-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    color: var(--text-light);
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+    display: block;
+}
+
+.form-input {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(30, 30, 30, 0.9);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2); /* Updated color */
+    outline: none;
+}
+
+/* Skill Tags */
+.skill-tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.skill-tag {
+    background: rgba(0, 123, 255, 0.1); /* Updated color */
+    color: var(--accent-color);
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    border: 1px solid var(--accent-color);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.skill-tag:hover {
+    background: var(--accent-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2); /* Updated color */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    /* Global Adjustments */
+    .main {
+        padding: 1rem;
+    }
+
+    /* Headers */
+    .header-title {
+        font-size: 2.5rem;
+    }
+
+    .header-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .header-description {
+        font-size: 0.9rem;
+    }
+
+    /* Buttons */
+    .stButton > button {
+        padding: 10px 15px !important;
+        font-size: 0.9rem !important;
+    }
+
+    /* Cards */
+    .stCard {
+        padding: 1.5rem;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr; /* Stack cards on small screens */
+    }
+
+    .metric-card {
+        padding: 1rem;
+    }
+
+    .metric-value {
+        font-size: 2rem;
+    }
+
+    .metric-label {
+        font-size: 0.85rem;
+    }
+
+    /* Forms */
+    .form-section {
+        padding: 1.5rem;
+    }
+
+    .form-section-title {
+        font-size: 1.5rem;
+    }
+
+    .form-input {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .skill-tag {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    /* About Section */
+    .about-section {
+        padding: 1.5rem;
+    }
+
+    .about-section h2 {
+        font-size: 1.8rem;
+    }
+
+    .about-description {
+        font-size: 1rem;
+    }
+
+    .team-member img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .team-member h3 {
+        font-size: 1.1rem;
+    }
+
+    .team-member p {
+        font-size: 0.9rem;
+    }
+
+    /* Analytics and Suggestions Sections */
+    .analytics-card,
+    .activity-section,
+    .suggestions-section {
+        padding: 1.5rem;
+    }
+
+    .analytics-icon,
+    .activity-icon,
+    .suggestions-icon,
+    .activity-empty-icon,
+    .suggestions-empty-icon {
+        font-size: 2rem;
+    }
+
+    .analytics-title,
+    .activity-title,
+    .suggestions-title {
+        font-size: 1.2rem;
+    }
+
+    .analytics-value {
+        font-size: 2rem;
+    }
+
+    .activity-item,
+    .suggestions-item,
+    .activity-empty-message,
+    .suggestions-empty-message {
+        font-size: 0.9rem;
+    }
+
+    /* Job Role Info Card */
+    .job-role-info-card {
+        padding: 15px;
+    }
+
+    /* Course Card */
+    .course-card {
+        padding: 10px;
+    }
+
+    .course-card h4 {
+        font-size: 1rem;
+    }
+
+    .course-link {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Further adjustments for very small screens */
+    .main {
+        padding: 0.5rem;
+    }
+
+    .header-title {
+        font-size: 2rem;
+    }
+
+    .header-subtitle {
+        font-size: 1rem;
+    }
+
+    .header-description {
+        font-size: 0.85rem;
+    }
+
+    .stButton > button {
+        padding: 8px 12px !important;
+        font-size: 0.8rem !important;
+    }
+
+    .feature-card h3 {
+        font-size: 1.3rem;
+    }
+}
+
+/* Admin Login Expander */
+.stExpander {
+    border: 1px solid rgba(53, 26, 205, 0.1);
+    border-radius: 10px;
+    margin-top: 2rem;
+}
+
+.stExpander div[role="button"] { /* Expander header */
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: var(--text-light) !important;
+    font-weight: 500 !important;
+    border-radius: 10px !important;
+    padding: 0.8rem 1rem !important;
+    margin-bottom: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.stExpander div[role="button"]:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.stExpander .stTextInput > div > div {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    color: var(--text-light) !important;
+}
+
+.stExpander .stTextInput > div > div:focus-within {
+    border-color: var(--accent-color-light) !important;
+    box-shadow: 0 0 0 1px var(--accent-color-light) !important;
+}
+
+.stExpander .stTextInput input {
+    color: #020202 !important;
+}
+
+.stExpander .stButton > button {
+    background: var(--accent-color) !important;
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.75rem 1rem !important;
+    font-weight: 500 !important;
+}
+
+.stExpander .stButton > button:hover {
+    background: var(--accent-color-dark) !important;
+}
+
+div[data-testid="stVerticalBlock"] > [data-testid="stHorizontalBlock"] > [data-testid="stVerticalBlock"] {
+    position: relative;
+}
+
+div[data-testid="stVerticalBlock"] > [data-testid="stHorizontalBlock"] > [data-testid="stVerticalBlock"] > div[data-testid="stButton"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+div[data-testid="stVerticalBlock"] > [data-testid="stHorizontalBlock"] > [data-testid="stVerticalBlock"] > div[data-testid="stButton"] > button {
+    background-color: transparent;
+    color: transparent;
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* --- ADDED FOR SECURE COMPONENTS --- */
+
+/* This targets the container created by st.container(border=True) and
+   applies the card-like hover effects and transitions. */
+div[data-testid="stAppViewContainer"] [data-testid="stVerticalBlock"] {
+    transition: all 0.3s ease;
+}
+
+div[data-testid="stAppViewContainer"] [data-testid="stVerticalBlock"]:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px var(--shadow-medium);
+    border-color: var(--accent-color) !important;
+}
+
+/* Styles the FontAwesome icon used in the new feature_card. */
+.feature-icon {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+/* Specific overrides for sidebar text colors to be black, assuming a white background */
+.sidebar-header {
+    color: black !important; /* "Smart Resume AI" */
+}
+
+section[data-testid="stSidebar"] h3 {
+    color: black !important; /* "Menu" (assuming it's an h3) */
+}
+
+section[data-testid="stSidebar"] .stExpander div[role="button"] {
+    color: black !important; /* "Admin Access" */
+}
+
