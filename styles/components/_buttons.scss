@@ -1,0 +1,78 @@
+/* Button Styling */
+.stButton > button {
+    background: var(--primary-gradient) !important;
+    color: var(--text-light) !important;
+    border: none !important;
+    padding: 12px 24px !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 4px rgba(0, 105, 148, 0.2) !important;
+    text-transform: none !important;
+    letter-spacing: 0.5px !important;
+    line-height: 1.4 !important;
+}
+
+.stButton > button:hover {
+    background: linear-gradient(135deg, #005577 0%, #0088B5 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(0, 105, 148, 0.3) !important;
+}
+
+.stButton > button:active {
+    transform: translateY(0) !important;
+    box-shadow: 0 2px 4px rgba(0, 105, 148, 0.2) !important;
+}
+/* Button Styles */
+.action-button {
+    background: var(--primary-gradient);
+    color: var(--text-light);
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.action-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 123, 255, 0.3); /* Updated color */
+}
+
+.action-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+    transition: all 0.6s ease;
+}
+
+.action-button:hover::before {
+    left: 100%;
+}
+@media (max-width: 768px) {
+    /* Buttons */
+    .stButton > button {
+        padding: 10px 15px !important;
+        font-size: 0.9rem !important;
+    }
+
+}
+@media (max-width: 480px) {
+    .stButton > button {
+        padding: 8px 12px !important;
+        font-size: 0.8rem !important;
+    }
+
+}
+
+

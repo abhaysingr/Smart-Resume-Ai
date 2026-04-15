@@ -218,14 +218,43 @@ def save_resume_data(data):
         template=data.get('template', '')
     )
 
-    for exp_data in data.get('experience', []):
-        new_resume.experiences.append(Experience(**exp_data))
+    for exp_data in data.get('experience', []) or []:
+        start_dt = f"{exp_data.get('start_month', '')} {exp_data.get('start_year', '')}".strip()
+        end_dt = "Present" if exp_data.get('is_present') else f"{exp_data.get('end_month', '')} {exp_data.get('end_year', '')}".strip()
+        desc = exp_data.get('responsibilities', '')
+        if isinstance(desc, list):
+            desc = '\n'.join(desc)
+            
+        new_resume.experiences.append(Experience(
+            company=exp_data.get('company', ''),
+            position=exp_data.get('position', ''),
+            start_date=start_dt,
+            end_date=end_dt,
+            description=desc
+        ))
     
-    for edu_data in data.get('education', []):
-        new_resume.education.append(Education(**edu_data))
+    for edu_data in data.get('education', []) or []:
+        grad_date = "Present" if edu_data.get('is_present') else str(edu_data.get('end_year', ''))
+        new_resume.education.append(Education(
+            school=edu_data.get('school', ''),
+            degree=edu_data.get('degree', ''),
+            field=edu_data.get('field', ''),
+            graduation_date=grad_date,
+            gpa=edu_data.get('gpa', '')
+        ))
 
-    for proj_data in data.get('projects', []):
-        new_resume.projects.append(Project(**proj_data))
+    for proj_data in data.get('projects', []) or []:
+        desc = proj_data.get('description', '')
+        pts = proj_data.get('key_points', [])
+        if pts:
+            desc += "\n" + "\n".join(f"- {p}" for p in pts)
+            
+        new_resume.projects.append(Project(
+            name=proj_data.get('name', ''),
+            technologies=proj_data.get('technologies', ''),
+            description=desc,
+            link=proj_data.get('github_link', '')
+        ))
 
     with get_db() as db:
         try:

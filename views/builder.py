@@ -35,6 +35,9 @@ def render_builder(builder):
 
     # Professional Summary
     st.session_state.form_data['summary'] = render_summary_form()
+
+    # Skills Section
+    st.session_state.form_data['skills_categories'] = render_skills_form(st.session_state.form_data['skills_categories'])
     
     # Experience Section
     st.session_state.form_data['experiences'] = render_experience_form(st.session_state.form_data['experiences'])
@@ -45,8 +48,6 @@ def render_builder(builder):
     # Education Section
     st.session_state.form_data['education'] = render_education_form(st.session_state.form_data['education'])
     
-    # Skills Section
-    st.session_state.form_data['skills_categories'] = render_skills_form(st.session_state.form_data['skills_categories'])
     
     # Certifications Section (NEW - ADD THIS)
     if 'certifications' not in st.session_state.form_data:
@@ -118,8 +119,18 @@ def render_builder(builder):
                     
                     # Save to database
                     try:
-                        save_resume_data(resume_data)
+                        resume_id = save_resume_data(resume_data)
                         logger.info("Resume data saved to database")
+                        
+                        if resume_id:
+                            with st.spinner("📊 Analyzing ATS compatibility..."):
+                                from services.latex_generator import generate_ats_score
+                                from config.database import save_analysis_data
+                                analysis_dict = generate_ats_score(resume_data, job_role.strip())
+                                if analysis_dict:
+                                    save_analysis_data(resume_id, analysis_dict)
+                                    logger.info("ATS Analysis saved to database")
+                                    
                     except Exception as db_error:
                         logger.warning(f"Failed to save to database: {str(db_error)}")
                     

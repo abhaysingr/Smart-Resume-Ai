@@ -1,0 +1,27 @@
+@media (max-width: 768px) {
+    .feature-grid {
+        grid-template-columns: 1fr; /* Stack cards on small screens */
+    }
+}
+div[data-testid="stVerticalBlock"] > [data-testid="stHorizontalBlock"] > [data-testid="stVerticalBlock"] {
+    position: relative;
+}
+
+div[data-testid="stVerticalBlock"] > [data-testid="stHorizontalBlock"] > [data-testid="stVerticalBlock"] > div[data-testid="stButton"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+div[data-testid="stVerticalBlock"] > [data-testid="stHorizontalBlock"] > [data-testid="stVerticalBlock"] > div[data-testid="stButton"] > button {
+    background-color: transparent;
+    color: transparent;
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+

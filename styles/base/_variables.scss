@@ -1,0 +1,25 @@
+/* Root Variables */
+:root {
+    --primary-gradient: linear-gradient(135deg, #007bff 0%, #0056b3 100%); /* Adjusted primary gradient */
+    --secondary-gradient: linear-gradient(135deg, #6c757d 0%, #5a6268 100%); /* Secondary gradient */
+    --accent-color: #007bff; /* Primary accent color */
+    --accent-color-light: #66b3ff; /* Lighter accent for subtle highlights */
+    --accent-color-dark: #0056b3; /* Darker accent for hover/active states */
+    --bg-primary: #f8f9fa; /* Lighter background for main content */
+    --bg-secondary: #ffffff; /* White background for cards/sections */
+    --bg-dark: #343a40; /* Dark background for sidebar/footers */
+    --text-primary: #212529; /* Darker text for readability */
+    --text-secondary: #6c757d; /* Lighter text for descriptions/subtitles */
+    --text-light: #ffffff; /* White text for dark backgrounds */
+    --border-color: #e0e0e0; /* Light border for subtle separation */
+    --shadow-light: rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
+    --shadow-medium: rgba(0, 0, 0, 0.15); /* Medium shadow for hover effects */
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --error-color: #dc3545;
+    
+    --font-primary: 'Inter', sans-serif;
+    --font-secondary: 'Poppins', sans-serif;
+}
+
+

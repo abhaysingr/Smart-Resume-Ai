@@ -1,6 +1,13 @@
 {
+  "scripts": {
+    "build:css": "sass styles/main.scss style/style.css --no-source-map",
+    "watch:css": "sass --watch styles/main.scss:style/style.css"
+  },
   "dependencies": {
     "node.js": "^0.0.1-security",
     "streamlit": "^2.51.2"
+  },
+  "devDependencies": {
+    "sass": "^1.99.0"
   }
 }

@@ -1,0 +1,116 @@
+/* Metrics - Enhanced for consistency */
+.stMetric,
+[data-testid="stMetric"] {
+    background: var(--bg-secondary);
+    padding: 1rem;
+    border-radius: 10px;
+    border-left: 4px solid var(--accent-color);
+    color: var(--text-primary);
+    transition: transform 0.3s ease;
+}
+
+.stMetric:hover,
+[data-testid="stMetric"]:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 8px var(--shadow-light);
+}
+/* Dashboard specific styling */
+.dashboard-title {
+    font-family: var(--font-secondary);
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+    text-align: center;
+}
+
+.metric-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px var(--shadow-light);
+    transition: transform 0.3s ease;
+    height: 100%;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px var(--shadow-medium);
+}
+
+.metric-value {
+    font-family: var(--font-secondary);
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    margin: 0.5rem 0;
+}
+
+.metric-label {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.chart-container {
+    background-color: var(--bg-secondary);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 8px var(--shadow-light);
+}
+/* Plotly Charts */
+.js-plotly-plot {
+    background: var(--bg-secondary) !important;
+}
+@media (max-width: 768px) {
+
+    .metric-card {
+        padding: 1rem;
+    }
+
+    .metric-value {
+        font-size: 2rem;
+    }
+
+    .metric-label {
+        font-size: 0.85rem;
+    }
+
+}
+@media (max-width: 768px) {
+    /* Analytics and Suggestions Sections */
+    .analytics-card,
+    .activity-section,
+    .suggestions-section {
+        padding: 1.5rem;
+    }
+
+    .analytics-icon,
+    .activity-icon,
+    .suggestions-icon,
+    .activity-empty-icon,
+    .suggestions-empty-icon {
+        font-size: 2rem;
+    }
+
+    .analytics-title,
+    .activity-title,
+    .suggestions-title {
+        font-size: 1.2rem;
+    }
+
+    .analytics-value {
+        font-size: 2rem;
+    }
+
+    .activity-item,
+    .suggestions-item,
+    .activity-empty-message,
+    .suggestions-empty-message {
+        font-size: 0.9rem;
+    }
+
+}
+
+

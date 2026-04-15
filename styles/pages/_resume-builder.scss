@@ -1,0 +1,258 @@
+.resume-template {
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 0.5rem;
+    border: 2px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.resume-template:hover {
+    border-color: var(--accent-color);
+    transform: scale(1.02);
+}
+/* About Section */
+.about-section {
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-light) 100%);
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0,123,255,0.1) 0%, transparent 70%); /* Updated color */
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+/* Role card styling */
+.role-card {
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.role-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-light);
+}
+
+.role-card h3 {
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+/* Skills tag styling */
+.skill-tag {
+    display: inline-block;
+    background: rgba(0, 123, 255, 0.1); /* Updated color */
+    color: var(--accent-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    margin: 0.25rem;
+    font-size: 0.875rem;
+}
+/* Template preview styling */
+.template-preview {
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+/* Template Card Styles */
+.template-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.template-card {
+    background: var(--bg-dark);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.template-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    border-color: var(--accent-color);
+}
+
+.template-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 0%, rgba(0, 123, 255, 0.1) 100%); /* Updated color */
+    z-index: 1;
+}
+
+.template-icon {
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.template-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.template-description {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+    line-height: 1.6;
+}
+/* Feature List Styles */
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+    position: relative;
+    z-index: 2;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    color: #ddd;
+    font-size: 0.95rem;
+}
+
+.feature-icon {
+    color: var(--accent-color);
+    margin-right: 0.8rem;
+    font-size: 1.1rem;
+}
+/* Skill Tags */
+.skill-tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.skill-tag {
+    background: rgba(0, 123, 255, 0.1); /* Updated color */
+    color: var(--accent-color);
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    border: 1px solid var(--accent-color);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.skill-tag:hover {
+    background: var(--accent-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2); /* Updated color */
+}
+@media (max-width: 768px) {
+    .skill-tag {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+}
+@media (max-width: 768px) {
+    /* About Section */
+    .about-section {
+        padding: 1.5rem;
+    }
+
+    .about-section h2 {
+        font-size: 1.8rem;
+    }
+
+    .about-description {
+        font-size: 1rem;
+    }
+
+    .team-member img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .team-member h3 {
+        font-size: 1.1rem;
+    }
+
+    .team-member p {
+        font-size: 0.9rem;
+    }
+
+}
+@media (max-width: 768px) {
+    /* Job Role Info Card */
+    .job-role-info-card {
+        padding: 15px;
+    }
+
+}
+@media (max-width: 768px) {
+    /* Course Card */
+    .course-card {
+        padding: 10px;
+    }
+
+    .course-card h4 {
+        font-size: 1rem;
+    }
+
+    .course-link {
+        font-size: 0.9rem;
+    }
+}
+@media (max-width: 480px) {
+    .feature-card h3 {
+        font-size: 1.3rem;
+    }
+}
+/* Styles the FontAwesome icon used in the new feature_card. */
+.feature-icon {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+

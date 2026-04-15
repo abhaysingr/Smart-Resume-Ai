@@ -30,7 +30,6 @@ from views.home import render_home
 from views.builder import render_builder
 from views.dashboard_view import render_dashboard
 from views.job_search import render_job_search
-from views.feedback import render_feedback_page
 from views.about import render_about
 from views.cover_letter import render_cover_letter_page
 from views.portfolio import render_portfolio_page
@@ -81,6 +80,27 @@ class ResumeApp:
             st.session_state.is_logged_in = False
         if 'user_email' not in st.session_state:
             st.session_state.user_email = None
+            
+        # --- Cookies & Persistent Data Profile ---
+        from streamlit_cookies_controller import CookieController
+        from utils.profile_manager import load_profile
+        
+        if 'cookie_controller' not in st.session_state:
+            st.session_state.cookie_controller = CookieController()
+
+        # If offline, check cookie for active session
+        if not st.session_state.is_logged_in:
+            auth_token = st.session_state.cookie_controller.get('auth_token')
+            if auth_token:
+                st.session_state.is_logged_in = True
+                st.session_state.user_email = auth_token
+                logger.info(f"Auto-restored session for {auth_token} using cookies.")
+                
+                # Load their previous data!
+                profile = load_profile(auth_token)
+                if profile:
+                    st.session_state.form_data = profile
+                    logger.info("Successfully loaded form_data from user profile JSON.")
         
         # Initialize managers
         self.dashboard_manager = DashboardManager()
@@ -99,7 +119,6 @@ class ResumeApp:
             "🌐 PORTFOLIO VIEWER": render_portfolio_page,
             "📊 DASHBOARD": lambda: render_dashboard(self.dashboard_manager),
             "🎯 JOB SEARCH": render_job_search,
-            "💬 FEEDBACK": render_feedback_page,
             "ℹ️ ABOUT": render_about,
             "🔑 SIGN IN": render_signin,
             "📝 SIGN UP": render_signup,
@@ -199,6 +218,11 @@ class ResumeApp:
             st.session_state.initial_load = True
             st.session_state.page = 'home'
             st.rerun()
+
+        # Auto-save data if logged in
+        if st.session_state.get('is_logged_in') and st.session_state.get('user_email'):
+            from utils.profile_manager import save_profile
+            save_profile(st.session_state.user_email, st.session_state.form_data)
         
         # Get current page and render it
         current_page = st.session_state.get('page', 'home')

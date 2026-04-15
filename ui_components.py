@@ -226,19 +226,6 @@ def template_card(title, description, image_url=None):
         </div>
     """, unsafe_allow_html=True)
 
-def feedback_card(name, feedback, rating):
-    """Render a modern feedback card with rating stars"""
-    stars = "⭐" * int(rating)
-    
-    st.markdown(f"""
-        <div class="card feedback-card">
-            <div class="feedback-header">
-                <div class="feedback-name">{name}</div>
-                <div class="feedback-rating">{stars}</div>
-            </div>
-            <p class="feedback-text">{feedback}</p>
-        </div>
-    """, unsafe_allow_html=True)
 
 def loading_spinner(message="Loading..."):
     """Show a modern loading spinner with message"""
@@ -343,52 +330,8 @@ def generate_team_section(team_members):
     team_html += '</div>'
     return team_html
 
-def render_feedback(feedback_data):
-    """Render feedback with modern styling"""
-    if not feedback_data:
-        return
-    
-    feedback_html = """
-    <div class="feedback-section">
-        <h3 class="feedback-header">Resume Analysis Feedback</h3>
-        <div class="feedback-content">
-    """
-    
-    for category, items in feedback_data.items():
-        if items:  # Only show categories with feedback
-            for item in items:
-                feedback_html += f"""
-                <div class="feedback-item">
-                    <div class="feedback-category">{html.escape(category)}</div>
-                    <div class="feedback-description">{html.escape(item)}</div>
-                </div>
-                """
-    
-    feedback_html += """
-        </div>
-    </div>
-    """
-    
-    st.markdown(feedback_html, unsafe_allow_html=True)
 
-def render_feedback_form():
-    st.markdown("""
-        <div class="feedback-header">
-            <h1>Your Voice Matters! 🗣️</h1>
-            <p>Help us improve Smart Resume AI with your valuable feedback and suggestions.</p>
-        </div>
-        <div class="feedback-form-container">
-    """, unsafe_allow_html=True)
 
-    # Form content will be added here by the feedback manager
-    st.markdown("</div>", unsafe_allow_html=True)
-
-def render_feedback_overview():
-    st.markdown("""
-        <div class="feedback-section">
-            <h2 class="feedback-overview-title">Feedback Overview 📊</h2>
-        </div>
-    """, unsafe_allow_html=True)
 
 def render_analytics_section(resume_uploaded=False, metrics=None):
     """Render the analytics section of the dashboard"""
@@ -571,312 +514,188 @@ def render_experience_form(experiences):
     """Render the work experience form section with enhanced date picker"""
     st.header("💼 Work Experience")
     
-    if 'experience_count' not in st.session_state:
-        st.session_state.experience_count = len(experiences) if experiences else 1
-    
     if st.button("➕ Add Experience", key="add_experience"):
-        st.session_state.experience_count += 1
-    
-    updated_experiences = []
-    
+        experiences.append({
+            'position': '', 'company': '', 'location': '', 'work_mode': 'On-site',
+            'start_month': 'Jan', 'start_year': datetime.now().year,
+            'end_month': 'Dec', 'end_year': datetime.now().year,
+            'is_present': False, 'responsibilities': ['']
+        })
+        st.rerun()
+
     # Month options
     months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     current_year = datetime.now().year
     years = list(range(current_year - 30, current_year + 2))  # Last 30 years to next year
     
-    for i in range(st.session_state.experience_count):
-        with st.expander(f"Experience {i+1}", expanded=(i == 0)):
-            # Get existing data if available
-            existing_exp = experiences[i] if i < len(experiences) else {}
-            
+    for i, exp in enumerate(experiences):
+        with st.expander(f"Experience {i+1}", expanded=(i == len(experiences) - 1)):
             col1, col2 = st.columns(2)
             
             with col1:
-                position = st.text_input(
+                exp['position'] = st.text_input(
                     "Position/Job Title*",
-                    value=existing_exp.get('position', ''),
+                    value=exp.get('position', ''),
                     key=f"exp_position_{i}",
                     placeholder="e.g., Software Engineer"
                 )
                 
-                company = st.text_input(
+                exp['company'] = st.text_input(
                     "Company Name*",
-                    value=existing_exp.get('company', ''),
+                    value=exp.get('company', ''),
                     key=f"exp_company_{i}",
                     placeholder="e.g., Google"
                 )
                 
-                location = st.text_input(
+                exp['location'] = st.text_input(
                     "Location",
-                    value=existing_exp.get('location', ''),
+                    value=exp.get('location', ''),
                     key=f"exp_location_{i}",
                     placeholder="e.g., San Francisco, CA"
                 )
             
             with col2:
-                work_mode = st.selectbox(
+                exp['work_mode'] = st.selectbox(
                     "Work Mode",
                     options=["On-site", "Remote", "Hybrid"],
-                    index=["On-site", "Remote", "Hybrid"].index(existing_exp.get('work_mode', 'On-site')) if existing_exp.get('work_mode') in ["On-site", "Remote", "Hybrid"] else 0,
+                    index=["On-site", "Remote", "Hybrid"].index(exp.get('work_mode', 'On-site')) if exp.get('work_mode') in ["On-site", "Remote", "Hybrid"] else 0,
                     key=f"exp_work_mode_{i}"
                 )
                 
+                st.write("**Start Date**")
+                start_month_col, start_year_col = st.columns(2)
+                with start_month_col:
+                    exp['start_month'] = st.selectbox("Month", months, index=months.index(exp.get('start_month', 'Jan')), key=f"exp_start_month_{i}")
+                with start_year_col:
+                    exp['start_year'] = st.selectbox("Year", years, index=years.index(exp.get('start_year', current_year)), key=f"exp_start_year_{i}")
+
+                st.write("**End Date**")
+                end_month_col, end_year_col = st.columns(2)
+                with end_month_col:
+                    exp['end_month'] = st.selectbox("Month", months, index=months.index(exp.get('end_month', 'Dec')), key=f"exp_end_month_{i}", disabled=exp.get('is_present', False))
+                with end_year_col:
+                    exp['end_year'] = st.selectbox("Year", years, index=years.index(exp.get('end_year', current_year)), key=f"exp_end_year_{i}", disabled=exp.get('is_present', False))
                 
-                with col2:
-                    st.write("**Start Date**")
-                    start_month = st.selectbox(
-                        "Month",
-                        options=months,
-                        index=months.index(existing_exp.get('start_month', 'Jan')) if existing_exp.get('start_month') in months else 0,
-                        key=f"exp_start_month_{i}"
-                    )
-                with col2:
-                    start_year = st.selectbox(
-                        "Year",
-                        options=years,
-                        index=years.index(existing_exp.get('start_year', current_year)) if existing_exp.get('start_year') in years else len(years)-1,
-                        key=f"exp_start_year_{i}"
-                    )
-                
-            
-                with col2:
-                    st.write("**End Date**")
-                    end_month = st.selectbox(
-                        "Month",
-                        options=months,
-                        index=months.index(existing_exp.get('end_month', 'Dec')) if existing_exp.get('end_month') in months else 11,
-                        key=f"exp_end_month_{i}",
-                        disabled=existing_exp.get('is_present', False)
-                    )
-                with col2:
-                    end_year = st.selectbox(
-                        "Year",
-                        options=years,
-                        index=years.index(existing_exp.get('end_year', current_year)) if existing_exp.get('end_year') in years else len(years)-1,
-                        key=f"exp_end_year_{i}",
-                        disabled=existing_exp.get('is_present', False)
-                    )
-                with col2:
-                    st.write("")  # Spacing
-                    is_present = st.checkbox(
-                        "Present",
-                        value=existing_exp.get('is_present', False),
-                        key=f"exp_present_{i}"
-                    )
-            
-            # Responsibilities section
+                exp['is_present'] = st.checkbox("Present", value=exp.get('is_present', False), key=f"exp_present_{i}")
+
             st.write("**Key Responsibilities & Achievements:**")
             st.caption("Use bullet points starting with strong action verbs (Developed, Led, Implemented, etc.)")
             
-            # Get existing responsibilities
-            existing_responsibilities = existing_exp.get('responsibilities', [''])
-            if not existing_responsibilities:
-                existing_responsibilities = ['']
-            
-            # Dynamic responsibility points
             if f'responsibility_count_{i}' not in st.session_state:
-                st.session_state[f'responsibility_count_{i}'] = max(len(existing_responsibilities), 3)
-            
-            responsibilities = []
+                st.session_state[f'responsibility_count_{i}'] = max(len(exp.get('responsibilities', [''])), 1)
+
+            # Ensure responsibilities list has enough empty strings
+            while len(exp.get('responsibilities', [])) < st.session_state[f'responsibility_count_{i}']:
+                exp.setdefault('responsibilities', []).append('')
+
+            temp_resps = []
             for j in range(st.session_state[f'responsibility_count_{i}']):
-                resp = st.text_input(
-                    f"Point {j+1}",
-                    value=existing_responsibilities[j] if j < len(existing_responsibilities) else '',
-                    key=f"exp_resp_{i}_{j}",
-                    placeholder=f"e.g., Developed Python-based REST APIs, reducing data processing time by 25%"
-                )
-                if resp.strip():
-                    responsibilities.append(resp.strip())
+                resp_text = st.text_input(f"Point {j+1}", value=exp['responsibilities'][j], key=f"exp_resp_{i}_{j}")
+                if resp_text.strip():
+                    temp_resps.append(resp_text.strip())
+            exp['responsibilities'] = temp_resps
             
-            # Add more points button
             if st.button(f"➕ Add More Points", key=f"add_resp_{i}"):
                 st.session_state[f'responsibility_count_{i}'] += 1
                 st.rerun()
-            
-            if position and company:
-                exp_data = {
-                    'position': position,
-                    'company': company,
-                    'location': location,
-                    'work_mode': work_mode,  # ADDED BACK
-                    'start_month': start_month,
-                    'start_year': start_year,
-                    'end_month': end_month if not is_present else '',
-                    'end_year': end_year if not is_present else '',
-                    'is_present': is_present,
-                    'start_date': f"{start_month} {start_year}",
-                    'end_date': "Present" if is_present else f"{end_month} {end_year}",
-                    'responsibilities': responsibilities
-                }
-                updated_experiences.append(exp_data)
-            
+
             if st.button(f"🗑️ Remove Experience {i+1}", key=f"remove_exp_{i}"):
-                st.session_state.experience_count -= 1
-                if f'responsibility_count_{i}' in st.session_state:
-                    del st.session_state[f'responsibility_count_{i}']
+                experiences.pop(i)
                 st.rerun()
-    
-    return updated_experiences
+            
+            # Update derived fields
+            exp['start_date'] = f"{exp['start_month']} {exp['start_year']}"
+            exp['end_date'] = "Present" if exp['is_present'] else f"{exp['end_month']} {exp['end_year']}"
+
+    return experiences
 
 def render_projects_form(projects_data):
     """Render the projects form section with enhanced date picker"""
     st.header("💼 Projects")
     
-    if 'project_count' not in st.session_state:
-        st.session_state.project_count = len(projects_data) if projects_data else 1
-    
     if st.button("➕ Add Project", key="add_project"):
-        st.session_state.project_count += 1
-    
-    projects = []
-    
+        projects_data.append({
+            'name': '', 'technologies': '', 'start_month': 'Jan', 'start_year': datetime.now().year,
+            'end_month': 'Dec', 'end_year': datetime.now().year, 'is_ongoing': False,
+            'github_link': '', 'description': '', 'key_points': ['']
+        })
+        st.rerun()
+
     # Month options
     months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     current_year = datetime.now().year
     years = list(range(current_year - 10, current_year + 2))  # Last 10 years to next year
     
-    for i in range(st.session_state.project_count):
-        with st.expander(f"Project {i+1}", expanded=(i == 0)):
-            # Get existing data if available
-            existing_project = projects_data[i] if i < len(projects_data) else {}
-            
+    for i, proj in enumerate(projects_data):
+        with st.expander(f"Project {i+1}", expanded=(i == len(projects_data) - 1)):
             col1, col2 = st.columns(2)
             
             with col1:
-                name = st.text_input(
-                    "Project Name*",
-                    value=existing_project.get('name', ''),
-                    key=f"project_name_{i}",
-                    placeholder="e.g., E-commerce Platform"
-                )
-                
-                technologies = st.text_input(
-                    "Technologies Used*",
-                    value=existing_project.get('technologies', ''),
-                    key=f"project_tech_{i}",
-                    placeholder="e.g., React, Node.js, MongoDB"
-                )
-            
+                proj['name'] = st.text_input("Project Name*", value=proj.get('name', ''), key=f"project_name_{i}")
+                proj['technologies'] = st.text_input("Technologies Used*", value=proj.get('technologies', ''), key=f"project_tech_{i}")
+
             with col2:
                 st.write("**Start Date**")
-                with col2:
-                    start_month = st.selectbox(
-                        "Month",
-                        options=months,
-                        index=months.index(existing_project.get('start_month', 'Jan')) if existing_project.get('start_month') in months else 0,
-                        key=f"proj_start_month_{i}"
-                    )
-                with col2:
-                    start_year = st.selectbox(
-                        "Year",
-                        options=years,
-                        index=years.index(existing_project.get('start_year', current_year)) if existing_project.get('start_year') in years else len(years)-1,
-                        key=f"proj_start_year_{i}"
-                    )
+                start_month_col, start_year_col = st.columns(2)
+                with start_month_col:
+                    proj['start_month'] = st.selectbox("Month", months, index=months.index(proj.get('start_month', 'Jan')), key=f"proj_start_month_{i}")
+                with start_year_col:
+                    proj['start_year'] = st.selectbox("Year", years, index=years.index(proj.get('start_year', current_year)), key=f"proj_start_year_{i}")
                 
-                
-                with col2:
-                    st.write("**End Date**")
-                    end_month = st.selectbox(
-                        "Month",
-                        options=months,
-                        index=months.index(existing_project.get('end_month', 'Dec')) if existing_project.get('end_month') in months else 11,
-                        key=f"proj_end_month_{i}",
-                        disabled=existing_project.get('is_ongoing', False)
-                    )
-                with col2:
-                    end_year = st.selectbox(
-                        "Year",
-                        options=years,
-                        index=years.index(existing_project.get('end_year', current_year)) if existing_project.get('end_year') in years else len(years)-1,
-                        key=f"proj_end_year_{i}",
-                        disabled=existing_project.get('is_ongoing', False)
-                    )
-                with col2:
-                    st.write("")  # Spacing
-                    is_ongoing = st.checkbox(
-                        "Ongoing",
-                        value=existing_project.get('is_ongoing', False),
-                        key=f"proj_ongoing_{i}"
-                    )
-            
-            # GitHub Link
-            github_link = st.text_input(
-                "Project GitHub URL",
-                value=existing_project.get('github_link', ''),
-                key=f"project_github_{i}",
-                placeholder="https://github.com/username/project-name"
-            )
-            
-            description = st.text_area(
-                "Project Description",
-                value=existing_project.get('description', ''),
-                key=f"project_desc_{i}",
-                placeholder="Brief overview of the project",
-                height=80
-            )
+                st.write("**End Date**")
+                end_month_col, end_year_col = st.columns(2)
+                with end_month_col:
+                    proj['end_month'] = st.selectbox("Month", months, index=months.index(proj.get('end_month', 'Dec')), key=f"proj_end_month_{i}", disabled=proj.get('is_ongoing', False))
+                with end_year_col:
+                    proj['end_year'] = st.selectbox("Year", years, index=years.index(proj.get('end_year', current_year)), key=f"proj_end_year_{i}", disabled=proj.get('is_ongoing', False))
+
+                proj['is_ongoing'] = st.checkbox("Ongoing", value=proj.get('is_ongoing', False), key=f"proj_ongoing_{i}")
+
+            proj['github_link'] = st.text_input("Project GitHub URL", value=proj.get('github_link', ''), key=f"project_github_{i}")
+            proj['description'] = st.text_area("Project Description", value=proj.get('description', ''), key=f"project_desc_{i}", height=80)
             
             st.write("**Key Achievements/Features:**")
-            st.caption("Highlight technical implementation, challenges solved, and impact")
-            
-            # Get existing key points
-            existing_points = existing_project.get('key_points', [''])
-            if not existing_points:
-                existing_points = ['']
-            
-            # Dynamic key points
             if f'project_point_count_{i}' not in st.session_state:
-                st.session_state[f'project_point_count_{i}'] = max(len(existing_points), 3)
+                st.session_state[f'project_point_count_{i}'] = max(len(proj.get('key_points', [''])), 1)
             
-            key_points = []
+            while len(proj.get('key_points', [])) < st.session_state[f'project_point_count_{i}']:
+                proj.setdefault('key_points', []).append('')
+
+            temp_points = []
             for j in range(st.session_state[f'project_point_count_{i}']):
-                point = st.text_input(
-                    f"Point {j+1}",
-                    value=existing_points[j] if j < len(existing_points) else '',
-                    key=f"project_point_{i}_{j}",
-                    placeholder=f"e.g., Implemented user authentication using JWT, supporting 10,000+ users"
-                )
+                point = st.text_input(f"Point {j+1}", value=proj['key_points'][j], key=f"project_point_{i}_{j}")
                 if point.strip():
-                    key_points.append(point.strip())
+                    temp_points.append(point.strip())
+            proj['key_points'] = temp_points
             
-            # Add more points button
             if st.button(f"➕ Add More Points", key=f"add_proj_point_{i}"):
                 st.session_state[f'project_point_count_{i}'] += 1
                 st.rerun()
-            
-            if name and technologies:
-                project_data = {
-                    'name': name,
-                    'technologies': technologies,
-                    'start_month': start_month,
-                    'start_year': start_year,
-                    'end_month': end_month if not is_ongoing else '',
-                    'end_year': end_year if not is_ongoing else '',
-                    'is_ongoing': is_ongoing,
-                    'start_date': f"{start_month} {start_year}",
-                    'end_date': "Present" if is_ongoing else f"{end_month} {end_year}",
-                    'github_link': github_link,
-                    'description': description,
-                    'key_points': key_points
-                }
-                projects.append(project_data)
-            
+
             if st.button(f"🗑️ Remove Project {i+1}", key=f"remove_project_{i}"):
-                st.session_state.project_count -= 1
-                if f'project_point_count_{i}' in st.session_state:
-                    del st.session_state[f'project_point_count_{i}']
+                projects_data.pop(i)
                 st.rerun()
-    
-    return projects
+
+            # Update derived fields
+            proj['start_date'] = f"{proj['start_month']} {proj['start_year']}"
+            proj['end_date'] = "Present" if proj['is_ongoing'] else f"{proj['end_month']} {proj['end_year']}"
+
+    return projects_data
 
 def render_education_form(education):
     st.subheader("Education")
+    
+    current_year = datetime.now().year
+    years = list(range(current_year - 50, current_year + 5)) # A wider range for education years
+
     if st.button("Add Education"):
         education.append({
             'school': '',
             'degree': '',
             'field': '',
-            'graduation_date': '',
+            'start_year': '',
+            'end_year': '',
+            'is_present': False,
             'gpa': '',
             'achievements': []
         })
@@ -889,14 +708,36 @@ def render_education_form(education):
             with col1:
                 edu['school'] = st.text_input("School/University", key=f"school_{idx}", value=edu.get('school', ''))
                 edu['degree'] = st.text_input("Degree", key=f"degree_{idx}", value=edu.get('degree', ''))
-            with col2:
                 edu['field'] = st.text_input("Field of Study", key=f"field_{idx}", value=edu.get('field', ''))
-                edu['graduation_date'] = st.text_input("Graduation Date", key=f"grad_date_{idx}", 
-                                                     value=edu.get('graduation_date', ''))
+            with col2:
+                st.write("**Start Year**")
+                edu['start_year'] = st.selectbox(
+                    "Year",
+                    options=years,
+                    index=years.index(edu.get('start_year', current_year)) if edu.get('start_year') in years else len(years)-1,
+                    key=f"edu_start_year_{idx}",
+                    label_visibility="collapsed"
+                )
+                
+                st.write("**End Year**")
+                edu['end_year'] = st.selectbox(
+                    "Year",
+                    options=years,
+                    index=years.index(edu.get('end_year', current_year)) if edu.get('end_year') in years else len(years)-1,
+                    key=f"edu_end_year_{idx}",
+                    disabled=edu.get('is_present', False),
+                    label_visibility="collapsed"
+                )
+                
+                edu['is_present'] = st.checkbox(
+                    "Currently pursuing",
+                    value=edu.get('is_present', False),
+                    key=f"edu_is_present_{idx}"
+                )
             
-            edu['gpa'] = st.text_input("GPA (optional)", key=f"gpa_{idx}", value=edu.get('gpa', ''))
+            edu['gpa'] = st.text_input("GPA/Percentage (optional)", key=f"gpa_{idx}", value=edu.get('gpa', ''))
             
-            st.markdown("##### Achievements & Activities")
+            st.markdown("##### Achievements & Activities (optional)")
             edu_achv_text = st.text_area("Enter achievements (one per line)", 
                                        key=f"edu_achv_{idx}",
                                        value='\n'.join(edu.get('achievements', [])),
@@ -1088,6 +929,11 @@ def render_sidebar(pages, load_lottie_url, is_admin, current_admin_email, verify
             if st.button("🚪 Sign Out", key="signout_button", type="primary"):
                 st.session_state.is_logged_in = False
                 st.session_state.user_email = None
+                
+                # Delete persistent cookie
+                if 'cookie_controller' in st.session_state:
+                    st.session_state.cookie_controller.remove('auth_token')
+                
                 st.success("Signed out successfully!")
                 st.rerun()
 

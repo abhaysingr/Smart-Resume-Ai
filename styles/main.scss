@@ -1,0 +1,17 @@
+/* 1. Base (lowest specificity) */
+@import 'base/reset';
+@import 'base/variables';
+@import 'base/typography';
+
+/* 2. Layout */
+@import 'layout/container';
+@import 'layout/grid';
+
+/* 3. Components */
+@import 'components/navbar';
+@import 'components/buttons';
+@import 'components/forms';
+
+/* 4. Pages (highest specificity) */
+@import 'pages/resume-builder';
+@import 'pages/ats';

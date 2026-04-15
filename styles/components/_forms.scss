@@ -1,0 +1,191 @@
+/* Input Fields */
+.stTextInput > div > div,
+div[data-baseweb="input"] {
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: 8px;
+    padding: 0;
+}
+
+.stTextInput > div > div:focus-within,
+div[data-baseweb="input"]:focus-within {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 1px var(--accent-color);
+}
+
+/* Streamlit Password Input Styles */
+div[data-baseweb="base-input"] {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+div[data-baseweb="input"] input {
+    background: transparent !important;
+    border: none !important;
+    color: var(--text-primary) !important;
+    font-size: 14px !important;
+    padding: 12px !important;
+    height: 45px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    outline: none !important;
+}
+
+/* Remove all focus outlines */
+div[data-baseweb="input"]:focus,
+div[data-webtest="input"] input:focus,
+div[data-baseweb="input"] div:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Single focus border on container */
+div[data-baseweb="input"]:focus-within {
+    border-color: var(--accent-color) !important;
+    box-shadow: 0 0 0 1px var(--accent-color) !important;
+}
+
+/* Password Eye Icon */
+div[data-baseweb="input"] button {
+    position: absolute !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    background: none !important;
+    border: none !important;
+    padding: 4px !important;
+    color: var(--text-secondary) !important;
+    cursor: pointer !important;
+    z-index: 2 !important;
+    height: auto !important;
+    min-height: auto !important;
+    width: auto !important;
+    min-width: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Eye Icon Hover */
+div[data-baseweb="input"] button:hover,
+div[data-baseweb="input"] button:focus {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: var(--accent-color) !important;
+}
+
+/* Remove any inner containers/wrappers styling */
+div[data-baseweb="input"] > div {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+/* Admin Login Section */
+.stExpander {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    margin: 10px 0;
+    padding: 15px;
+}
+
+.stExpander .stButton > button {
+    width: 100%;
+    margin: 10px 0 5px 0;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    height: 45px;
+}
+
+.stExpander .stButton > button:hover {
+    background: var(--accent-color-dark);
+}
+/* File Uploader */
+.stFileUploader {
+    background: var(--bg-secondary);
+    border: 2px dashed var(--border-color);
+    border-radius: 10px;
+    padding: 2rem;
+}
+
+.stFileUploader:hover {
+    border-color: var(--accent-color);
+}
+/* Progress Bars */
+.stProgress > div > div {
+    background-color: var(--accent-color);
+}
+/* Form Section Styles */
+.form-section {
+    background: var(--bg-dark);
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 2rem 0;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.form-section-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    color: var(--text-light);
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+    display: block;
+}
+
+.form-input {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(30, 30, 30, 0.9);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2); /* Updated color */
+    outline: none;
+}
+@media (max-width: 768px) {
+    /* Forms */
+    .form-section {
+        padding: 1.5rem;
+    }
+
+    .form-section-title {
+        font-size: 1.5rem;
+    }
+
+    .form-input {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+}
+
+

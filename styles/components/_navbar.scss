@@ -1,0 +1,87 @@
+/* --- START OF NEW SIDEBAR STYLE --- */
+/* Sidebar container */
+section[data-testid="stSidebar"] {
+    background-color: #2f2f3a !important;
+    border-right: 1px solid #444; /* A subtle border instead of a shadow */
+    box-shadow: none !important;
+    padding: 1rem !important;
+}
+
+/* Sidebar header text */
+.sidebar-header {
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+/* All text inside sidebar */
+section[data-testid="stSidebar"] p,
+section[data-testid="stSidebar"] span,
+section[data-testid="stSidebar"] h1,
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3 {
+    color: white !important;
+}
+
+
+/* Sidebar navigation buttons */
+section[data-testid="stSidebar"] .stButton button {
+    padding: 14px 20px !important;
+    margin: 5px 0 !important;
+    border-radius: 8px !important;
+    color: #e6e6e6 !important; /* Slightly off-white */
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    transition: color 0.2s ease, background-color 0.2s ease !important;
+    background-color: transparent !important;
+    border: none !important;
+    width: 100% !important;
+    text-align: left !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important; /* Space between icon and text */
+}
+
+/* Hover effect for navigation buttons */
+section[data-testid="stSidebar"] .stButton button:hover {
+    color: #ffffff !important;
+    background-color: rgba(224, 15, 15, 0.08) !important;
+}
+
+/* Make sure the text inside the button is styled correctly */
+section[data-testid="stSidebar"] .stButton button p {
+    color: inherit !important; /* Inherit color from the button */
+    font-weight: inherit !important;
+}
+
+/* Style for the active page button */
+section[data-testid="stSidebar"] .stButton button.active {
+    background-color: rgba(0, 123, 255, 0.2) !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+
+.sidebar-icon {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.6);
+    transition: all 0.2s ease;
+}
+
+/* --- END OF NEW SIDEBAR STYLE --- */
+/* Specific overrides for sidebar text colors to be black, assuming a white background */
+.sidebar-header {
+    color: black !important; /* "Smart Resume AI" */
+}
+
+section[data-testid="stSidebar"] h3 {
+    color: black !important; /* "Menu" (assuming it's an h3) */
+}
+
+section[data-testid="stSidebar"] .stExpander div[role="button"] {
+    color: black !important; /* "Admin Access" */
+}
+
+
+

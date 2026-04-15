@@ -57,7 +57,7 @@ def generate_latex_resume(resume_data, template_style, job_role):
 \\usepackage{{hyperref}}
 \\usepackage{{xcolor}}
 \\usepackage{{tabularx}}
-\\usepackage{{multicol}}
+\\usepackage{{fontawesome5}}
 
 % Define colors based on template
 {get_color_scheme(template_style)}
@@ -99,27 +99,27 @@ def generate_latex_resume(resume_data, template_style, job_role):
     \\vspace{{4pt}}
     
     {{\\small
-    \\href{{mailto:EMAIL_HERE}}{{\\textbf{{EMAIL_HERE}}}} \\textbar{{}} 
-    \\textbf{{PHONE_HERE}} \\textbar{{}} 
-    \\textbf{{LOCATION_HERE}}
+    \\textbf{{PHONE_HERE}} \\textbar{{}}
+    \\href{{mailto:EMAIL_HERE}}{{\\textbf{{EMAIL_HERE}}}} \\textbar{{}}  
+    \\href{{FULL_LINKEDIN_URL}}{{linkedin.com/in/USERNAME}} \\textbar{{}} 
+    \\href{{FULL_GITHUB_URL}}{{github.com/USERNAME}}
     }}
     
     \\vspace{{2pt}}
     
     {{\\small
-    \\href{{FULL_LINKEDIN_URL}}{{linkedin.com/in/USERNAME}} \\textbar{{}} 
-    \\href{{FULL_GITHUB_URL}}{{github.com/USERNAME}}
+    \\textbf{{LOCATION_HERE}}
     }}
 \\end{{center}}
 
-\\vspace{{-8pt}}
+\\vspace{{-18pt}}
 
 % ========== PROFESSIONAL SUMMARY ==========
 \\section*{{PROFESSIONAL SUMMARY}}
 \\vspace{{-3pt}}
 Write a compelling 2-3 line summary specifically highlighting passion and skills for {job_role}. Focus on key technical strengths, experience level, and what value you bring. Make it specific to {job_role} role.
 
-\\vspace{{-3pt}}
+\\vspace{{-10pt}}
 
 % ========== TECHNICAL SKILLS ==========
 \\section*{{TECHNICAL SKILLS}}
@@ -132,7 +132,7 @@ Write a compelling 2-3 line summary specifically highlighting passion and skills
     \\item \\textbf{{Cloud \\& DevOps:}} Cloud platforms and DevOps tools if applicable
 \\end{{itemize}}
 
-\\vspace{{-3pt}}
+\\vspace{{-10pt}}
 
 % ========== PROFESSIONAL EXPERIENCE ==========
 \\section*{{PROFESSIONAL EXPERIENCE}}
@@ -148,10 +148,10 @@ Write a compelling 2-3 line summary specifically highlighting passion and skills
     \\item Maximum 3-4 bullets per role
 \\end{{itemize}}
 
-\\vspace{{-3pt}}
+\\vspace{{-10pt}}
 
 % ========== KEY PROJECTS ==========
-\\section*{{KEY PROJECTS}}
+\\section*{{PROJECTS}}
 \\vspace{{-3pt}}
 
 \\textbf{{Project Name}} {{\\small\\textit{{| Tech1, Tech2, Tech3}}}} \\hfill {{\\textit{{\\small Month YYYY -- Month YYYY}}}} \\\\
@@ -174,27 +174,26 @@ Write a compelling 2-3 line summary specifically highlighting passion and skills
     \\item Show understanding of software engineering principles
 \\end{{itemize}}
 
-\\vspace{{-3pt}}
+\\vspace{{-10pt}}
 
 % ========== EDUCATION ==========
 \\section*{{EDUCATION}}
 \\vspace{{-3pt}}
 
-\\textbf{{Degree (e.g., Bachelor of Technology in Computer Science)}} \\hfill {{\\textit{{\\small Month YYYY -- Month YYYY}}}} \\\\
-{{\\small\\textit{{University Name, Location}}}} \\\\
-{{\\small GPA: X.XX/4.0}}
-\\begin{{itemize}}[leftmargin=1.5em, itemsep=0.5pt]
-    \\item Achievements & Activities: List academic achievements, relevant coursework, or activities
-\\end{{itemize}}
+\\textbf{{Full Degree Name (Abbreviation)}} -- \\textbf{{Field of Study}} \\hfill \\textbf{{Start Year -- End Year}} \\\\
+{{\\small\\textit{{University Name (Affiliation)}}}} {{|}} {{\\small CGPA: X.XX/10.0}}
+% Achievements are optional and should only be included if provided by the user.
+% \\begin{{itemize}}[leftmargin=1.5em, itemsep=0.5pt]
+%    \\item Achievement 1
+% \\end{{itemize}}
 
-\\vspace{{-3pt}}
+\\vspace{{-10pt}}
 
 % ========== CERTIFICATIONS \\& ACHIEVEMENTS ==========
 \\section*{{CERTIFICATIONS \\& ACHIEVEMENTS}}
 \\vspace{{-3pt}}
 \\begin{{itemize}}[leftmargin=1.5em, itemsep=0.5pt]
-    \\item \\textbf{{Certification Name}} -- Issuing Organization (Month YYYY) \\\\
-    {{\\small Verification: \\href{{{{FULL_VERIFICATION_URL}}}}{{{{URL_TEXT}}}}}}
+    \\item \\textbf{{Certification Name}} -- Issuing Organization {{\\small \\href{{{{FULL_VERIFICATION_URL}}}}{{{{\\faShareSquare}}}}}} \\hfill Issued on: (Month YYYY) 
     \\item \\textbf{{Achievement/Award}} -- Brief description with impact
     \\item Group related certifications together, prioritize most relevant to {job_role}
     \\item Include competitive programming ratings, hackathon wins, workshops only if space permits
@@ -231,9 +230,12 @@ Write a compelling 2-3 line summary specifically highlighting passion and skills
    - Focus on technical achievements and problem-solving
 
 5. **Education:**
-   - Include full degree name (e.g., "Bachelor of Technology in Computer Science Engineering")
-   - Add relevant coursework if space available
-   - Include GPA if strong (>3.0/4.0 or >7.0/10.0)
+   - **Degree Expansion:** If the user provides an abbreviation (e.g., "B. Tech"), expand it to the full form and include the abbreviation in parentheses, like "Bachelor of Technology (B. Tech)".
+   - **Formatting (Line 1):** `**<Full Degree Name (Abbreviation)>** – **<Field of Study>** \\hfill **<Start Year – End Year>**`. Ensure this is all on one line.
+   - **Formatting (Line 2):** `*<University Name (Affiliation)>* | *CGPA: <value> / <scale>*`. Only include the CGPA part if a GPA is provided.
+   - **Achievements:** Only include a bulleted list of achievements if the user has provided them. **Do not** create or add any achievements yourself. If no achievements are provided, this section should be completely blank.
+   - Ensure degree, field, and years are bold.
+
 
 6. **Certifications:**
    - List most relevant first
@@ -504,23 +506,31 @@ Key Achievements:
     education = resume_data.get('education', [])
     if education:
         for edu in education:
+            start_date_str = str(edu.get('start_year', '')).strip()
+            end_date_str = ""
+            if edu.get('is_present'):
+                end_date_str = "Present"
+            else:
+                end_date_str = str(edu.get('end_year', '')).strip()
+            
             text += f"""
-Degree: {edu.get('degree', 'Not provided')}
-Institution: {edu.get('school', 'Not provided')}
-Start Date: {edu.get('start_date', 'Not provided')}
-End Date: {edu.get('end_date', 'Not provided')}
-GPA: {edu.get('gpa', 'Not provided')}
-Location: {edu.get('location', 'Not provided')}
-Achievements:
+Degree: {edu.get('degree', '')}
+Field of Study: {edu.get('field', '')}
+Institution: {edu.get('school', '')}
+Duration: {start_date_str} - {end_date_str}
+Location: {edu.get('location', '')}
 """
+            if edu.get('gpa', '').strip():
+                text += f"GPA: {edu.get('gpa', '')}\n"
+
             achievements = edu.get('achievements', [])
             if achievements:
+                text += "Achievements:\n"
                 for achievement in achievements:
-                    text += f"  • {achievement}\n"
-            else:
-                text += "  • No achievements provided\n"
+                    if achievement.strip(): # Only add non-empty achievements
+                        text += f"  • {achievement}\n"
     else:
-        text += "Not provided\n"
+        text += "No education provided\n"
     
     text += "\n**Skills (Categorized):**\n"
     skills = resume_data.get('skills', {})
@@ -545,5 +555,47 @@ Verification URL: {cert.get('verification_url', 'Not provided')}
 """
     else:
         text += "No certifications provided\n"
-    
     return text
+
+import json
+
+def generate_ats_score(resume_data, job_role):
+    """
+    Generate a quick ATS score analysis returning a dictionary.
+    """
+    try:
+        client = get_groq_client()
+        resume_text = format_resume_data_as_text(resume_data)
+        
+        prompt = f"""Evaluate this resume against the role of {job_role}.
+Return ONLY a valid JSON object with the following structure (no markdown formatting, no other text):
+{{
+  "ats_score": number between 0 and 100,
+  "keyword_match_score": number between 0 and 100,
+  "format_score": number between 0 and 100,
+  "section_score": number between 0 and 100,
+  "missing_skills": "string of 2-3 missing skills",
+  "recommendations": "1 brief sentence recommendation"
+}}
+
+Resume:
+{resume_text}
+"""
+        chat_completion = client.chat.completions.create(
+            messages=[{"role": "user", "content": prompt}],
+            model="llama-3.3-70b-versatile",
+            temperature=0.3,
+            max_tokens=500
+        )
+        content = chat_completion.choices[0].message.content.strip()
+        if content.startswith("```json"):
+            content = content[7:]
+        if content.startswith("```"):
+            content = content[3:]
+        if content.endswith("```"):
+            content = content[:-3]
+            
+        return json.loads(content.strip())
+    except Exception as e:
+        logger.error(f"Error calculating ATS score inline: {str(e)}", exc_info=True)
+        return None

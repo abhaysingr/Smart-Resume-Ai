@@ -91,6 +91,7 @@ class ResumeBuilder:
             exp = {
                 'position': input("Title/Position: ").strip(),
                 'company': input("Company Name: ").strip(),
+                'location': input("Location (State,Country): ").strip(),
                 'start_date': input("Start Date (Month Year, e.g., Jan 2023): ").strip(),
                 'end_date': input("End Date (Month Year or 'Present'): ").strip(),
                 'work_mode': input("Work Mode (Remote/Hybrid/On-site): ").strip(),

@@ -43,11 +43,15 @@ class DashboardManager:
             for skills_tuple in all_skills_str:
                 skills_str = skills_tuple[0]
                 try:
-                    # This assumes skills are stored like "['python', 'java']"
-                    skills_list = eval(skills_str)
-                    if isinstance(skills_list, list):
-                        all_skills.extend([skill.lower().strip() for skill in skills_list])
-                except (SyntaxError, NameError):
+                    skills_obj = eval(skills_str)
+                    if isinstance(skills_obj, list):
+                        all_skills.extend([skill.lower().strip() for skill in skills_obj])
+                    elif isinstance(skills_obj, dict):
+                        # Flatten the skills dictionary (which maps categories to lists)
+                        for category, skills_list in skills_obj.items():
+                            if isinstance(skills_list, list):
+                                all_skills.extend([skill.lower().strip() for skill in skills_list])
+                except Exception:
                     # Handle cases where skills might be a simple comma-separated string
                     if isinstance(skills_str, str):
                         all_skills.extend([s.lower().strip() for s in skills_str.split(',')])
@@ -80,8 +84,8 @@ class DashboardManager:
             for r in results:
                 data = {
                     "ID": r.id, "Name": r.name, "Email": r.email, "Phone": r.phone,
-                    "LinkedIn": r.linkedin, "GitHub": r.github, "Portfolio": r.portfolio,
-                    "Target Role": r.target_role, "Created At": r.created_at,
+                    "LinkedIn": r.linkedin, "GitHub": r.github,
+                    "Created At": r.created_at.replace(tzinfo=None) if r.created_at else None,
                     "ATS Score": r.analysis.ats_score if r.analysis else None
                 }
                 data_list.append(data)
